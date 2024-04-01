@@ -1,0 +1,32 @@
+What is Go?
+1:Go is cross platform open source programming language.
+2:Go can be used to create high performance application.
+3:Go is fast, statically typed, compiled language.
+4:Go was created at Google by Ken Thompson in 2007.
+5:Go syntax is similar to C++.
+
+What is Go used for?
+1: Web development (server side).
+2: Developing network based programming.
+3: Developing cross platform interprise application.
+4: Cloud native development.
+
+Why we use Go?
+1: Go is fun and easy to learn.
+2: Go has fast runtime and compilation time.
+3: Go has memory managment.
+
+Main points: 
+1: compilation time refer to translating the code into an executable program.
+2: Concurrency perform multiple things at the same time without effecting the final result.
+3: Statically types means variable types are declare at copile time.
+
+Go file consist of
+1: Package declaration.
+2: Import packages.
+3: Function declaration.
+4: Statement and expressions.
+
+
+What is lexer in go?
+A lexer in Go is a component of the compiler or interpreter responsible for breaking down the input source code into meaningful tokens, such as keywords, identifiers, literals, operators, and punctuation symbols, which are then used for further processing in the compilation or interpretation process.
