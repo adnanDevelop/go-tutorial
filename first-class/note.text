@@ -30,3 +30,6 @@ Go file consist of
 
 What is lexer in go?
 A lexer in Go is a component of the compiler or interpreter responsible for breaking down the input source code into meaningful tokens, such as keywords, identifiers, literals, operators, and punctuation symbols, which are then used for further processing in the compilation or interpretation process.
+
+in Urdu
+Ek lexer Go mein compiler ya interpreter ka aik hissa hota hai jo input source code ko ma'ni khiz tokenz mein toor deta hai, jaise keywords, identifiers, literals, operators, aur punctuation symbols, jo phir compile ya interpret karne ke process mein mazeed tajziyat ke liye istemal kiye jate hain.
