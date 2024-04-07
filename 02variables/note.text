@@ -1,0 +1,1 @@
+Variable without keyword is not allowed to declare in global but if we create it in any method or in function then it's work.
