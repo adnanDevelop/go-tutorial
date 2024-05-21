@@ -6,10 +6,9 @@ What is Go?
 5:Go syntax is similar to C++.
 
 What is Go used for?
-1: Web development (server side).
+1: It can be used on server side.
 2: Developing network based programming.
 3: Developing cross platform interprise application.
-4: Cloud native development.
 
 Why we use Go?
 1: Go is fun and easy to learn.
@@ -19,7 +18,7 @@ Why we use Go?
 Main points: 
 1: compilation time refer to translating the code into an executable program.
 2: Concurrency perform multiple things at the same time without effecting the final result.
-3: Statically types means variable types are declare at copile time.
+3: Statically types means variable types are declare at compile time.
 
 Go file consist of
 1: Package declaration.
