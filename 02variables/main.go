@@ -29,5 +29,6 @@ func main() {
 
 	withouVarKeyword := "this variable is declared without var keyword"
 	fmt.Println(withouVarKeyword)
+	fmt.Printf(withouVarKeyword)
 
 }
