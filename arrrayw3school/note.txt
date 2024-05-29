@@ -1,0 +1,10 @@
+Array?
+Array are used to store multiple values in a single variable instead of creating separate variable for each value. There are two ways to declare an array
+1: Using var keyword        2: := Using walrus operator
+
+var student = [2]int{"adnan", "Hanan"} Here we declared the length of array.
+var student = [..]int{"adnan", "Hanan"} Here we didn't give the length of array. Now length is inferred
+
+The length specifies the number of elements to store in the array. In Go arrays have fixed length. The length of the array is either defined by a number or is inferred(means that compilor decides the length of the array based on the number of values).
+
+If an array or one of its elements has not been initialized in the code, it is assigned the default value of its type.
