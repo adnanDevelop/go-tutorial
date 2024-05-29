@@ -4,6 +4,10 @@ import "fmt"
 
 //jwtToken := 1250;	    this gives an error because we can't decalre variable like this globally it work's in any method or in function
 
+const MyName = "Adnan Tariq" //If we are creating a variable with constant then we have to put the first letter of constant variable to capital
+
+// := we can call this volrus operator
+
 func main() {
 	var name string = "adnan" //STRING DATA
 	fmt.Println(name)
@@ -29,6 +33,5 @@ func main() {
 
 	withouVarKeyword := "this variable is declared without var keyword"
 	fmt.Println(withouVarKeyword)
-	fmt.Printf(withouVarKeyword)
 
 }
