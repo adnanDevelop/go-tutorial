@@ -1,0 +1,7 @@
+Slices are also similar to array. Slices are used to store multiple values into a single variable.
+
+In Go, there are several ways to create a slice:
+
+- Using the []datatype{values} format
+- Create a slice from an array
+- Using the make() function
