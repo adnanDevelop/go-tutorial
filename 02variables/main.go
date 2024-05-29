@@ -6,7 +6,7 @@ import "fmt"
 
 const MyName = "Adnan Tariq" //If we are creating a variable with constant then we have to put the first letter of constant variable to capital
 
-// := we can call this volrus operator
+// := we can call this either walrus operator or short variable declaration operator
 
 func main() {
 	var name string = "adnan" //STRING DATA
