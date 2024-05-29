@@ -1,0 +1,2 @@
+What is struct?
+Struct is used to create collection of members of different data types into single variable while arrays are used to store multiple values of same data type into a single variable
