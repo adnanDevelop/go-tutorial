@@ -28,7 +28,6 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		uri := "mongodb://localhost:27017"
 		client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(uri))
-		defer client.Disconnect(context.Background())
 		if err != nil {
 			log.Fatal(err)
 		}
