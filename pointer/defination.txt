@@ -1,0 +1,2 @@
+What is pointer?
+In Go, a pointer is like a signpost that points to where a value is stored in the computer's memory. It's helpful because instead of passing around big chunks of data, you can just pass a small pointer to where that data is kept. It is declared using the asterrisk symbol (*) followed by the type of the variable it points to. The default value of pointer is <nil>

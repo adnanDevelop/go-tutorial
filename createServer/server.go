@@ -1,10 +1,14 @@
 package main
 
 import (
-	"fmt"
+	"context"
+	"log"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type PostData struct {
@@ -13,14 +17,46 @@ type PostData struct {
 	Password string `json:"password"`
 }
 
+type ApiData struct {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+	Job  string `json:"job"`
+}
+
 func main() {
-
-	var myMap = map[string]string{"brand": "Ford", "model": "Mustang", "year": "1964"}
-	fmt.Println(myMap)
-
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello world")
+		uri := "mongodb://localhost:27017"
+		client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(uri))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		db := client.Database("newData")
+		collection := db.Collection("posts")
+
+		var posts []ApiData
+		cursor, err := collection.Find(context.Background(), bson.M{})
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		defer cursor.Close(context.Background())
+		for cursor.Next(context.Background()) {
+			var post ApiData
+			if err := cursor.Decode(&post); err != nil {
+				log.Fatal(err)
+			}
+			posts = append(posts, post)
+		}
+
+		response := echo.Map{
+			"status":  http.StatusOK,
+			"message": "Get Data successfully",
+			"data":    posts,
+		}
+
+		return c.JSON(http.StatusOK, response)
 	})
 
 	e.POST("/post-data", func(c echo.Context) error {
