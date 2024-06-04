@@ -1,0 +1,16 @@
+Memory Management in Go
+1: Garbage Collection: Go automatically manages memory using a garbage collector, which frees unused memory, preventing leaks.
+2: Stack and Heap:
+    - Stack: For static memory allocation (local variables and function calls), fast but limited in size.
+    - Heap: For dynamic memory allocation (using new or composite literals), larger but slower.
+    
+3: Escape Analysis: Determines whether variables should be allocated on the stack or heap based on their scope.
+4: Automatic Allocation: Memory is automatically allocated for basic and composite types (slices, maps, structs) without manual intervention.
+5: Pointers: Used to reference memory locations, but Go prevents unsafe pointer arithmetic, making them safer.
+6: Slices and Maps: Dynamic arrays (slices) and hash tables (maps) with automatic resizing and memory management.
+
+Key Points
+- Automatic garbage collection.
+- Efficient stack and heap management.
+- Safe pointers without pointer arithmetic.
+- Dynamic data structures with automatic memory handling.
