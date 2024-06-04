@@ -63,4 +63,11 @@ func main() {
 	fmt.Println(sortNumber)
 	fmt.Println(sort.IntsAreSorted(sortNumber))
 
+	// How to delete element from slice
+	var deleteElement = []string{"html", "Css", "Javascript", "Bootstrap", "React"}
+	index := 2
+
+	deleteElement = append(deleteElement[:index], deleteElement[index+1:]...)
+	fmt.Println(deleteElement)
+
 }
