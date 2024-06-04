@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
 func main() {
@@ -9,6 +10,9 @@ func main() {
 	// Creating slice using comon method
 	var mySlice = []string{"Adnan", "hanan"}
 	fmt.Println(mySlice, len(mySlice), cap(mySlice)) // len return the length of slice while cap return the capacity of slice
+
+	var cutSlice = append(mySlice, "Hamad", "Wajid")
+	fmt.Println(cutSlice[1:3])
 
 	// Create a slice from array
 	var newArr = [4]int{11, 22, 33, 44}
@@ -52,5 +56,11 @@ func main() {
 
 		fmt.Println(value)
 	}
+
+	var sortNumber = []int{2342, 213, 345, 100, 50}
+
+	sort.Ints(sortNumber)
+	fmt.Println(sortNumber)
+	fmt.Println(sort.IntsAreSorted(sortNumber))
 
 }
