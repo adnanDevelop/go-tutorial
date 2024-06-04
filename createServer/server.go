@@ -25,6 +25,7 @@ type ApiData struct {
 
 func main() {
 	e := echo.New()
+
 	e.GET("/", func(c echo.Context) error {
 		uri := "mongodb://localhost:27017"
 		client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(uri))
@@ -76,6 +77,7 @@ func main() {
 		return c.JSON(http.StatusOK, response)
 	})
 
+	// e.Logger.Fatal(e.Start(":1234"))
 	e.Logger.Fatal(e.Start(":1234"))
 
 }
