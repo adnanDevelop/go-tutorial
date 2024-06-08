@@ -10,15 +10,11 @@ type UserData struct {
 }
 
 func main() {
-	var userOne UserData
+	var newUser UserData
+	fmt.Printf("%+v\n", newUser)
 
-	userOne.name = "Adnan"
-	userOne.age = 21
-	userOne.class = "12th"
-	userOne.job = "Frontend Web Developer"
-	fmt.Println("Name:", userOne.name)
-	fmt.Println("Age:", userOne.age)
-	fmt.Println("Class:", userOne.class)
-	fmt.Println("Job:", userOne.job)
+	userOne := UserData{"adnan", 20, "10th", "Frontend Developer"}
+	fmt.Printf("%+v\n", userOne)
+	fmt.Println(userOne.age)
 
 }
