@@ -17,3 +17,10 @@ Integer data types are used to store whole numbers without decimals. There are t
 It is used to store sequence of charactor. String value must be surrounded by double quotes.
 
 
+There are two ways to declare variable
+1: By using var keyword                 
+var testing = "testing"
+
+2: With := Signe
+testing:= "testing"
+In this case the type of variable is inferred from the value

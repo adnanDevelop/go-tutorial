@@ -8,9 +8,9 @@ What is Go?
 What is Go used for?
 1: It can be used on server side.
 2: Developing network based programming.
-3: Developing cross platform interprise application.
+3: Developing cross platform enterprise application.
 
-Why we use Go?
+Why do we use Go?
 1: Go is fun and easy to learn.
 2: Go has fast runtime and compilation time.
 3: Go has memory managment.

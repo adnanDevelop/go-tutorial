@@ -9,19 +9,19 @@ const MyName = "Adnan Tariq" //If we are creating a variable with constant then 
 // := we can call this either walrus operator or short variable declaration operator
 
 func main() {
-	var name string = "adnan" //STRING DATA
+	var name string = "adnan" //STRING
 	fmt.Println(name)
 	fmt.Printf("The variable of type %T \n", name)
 
-	var isLogIn bool = false //BOOLEAN DATA
+	var isLogIn bool = false //BOOLEAN
 	fmt.Println(isLogIn)
 	fmt.Printf("The variable of type %T  \n", isLogIn)
 
-	var numbers int = 1200 //BOOLEAN DATA
+	var numbers int = 1200 //INTEGER
 	fmt.Println(numbers)
 	fmt.Printf("The variable of type %T \n", numbers)
 
-	var floatNumbers = 12.50 //BOOLEAN DATA
+	var floatNumbers = 12.50 //FLOATING POINT NUMBER
 	fmt.Println(floatNumbers)
 	fmt.Printf("The variable of type %T \n", floatNumbers)
 
