@@ -1,0 +1,23 @@
+1:What is Go?
+Go is a statically typed, compiled, and open-source programming language. It is cross-platform and can be used for backend development and networking programs. Its syntax is similar to C++, and it was created by Robert Griesemer, Rob Pike, and Ken Thompson at Google in 2007.
+
+2: Difference b/w Go and Javascript? 
+- Go is a statically typed, compiled language. Once you declare a variable with a specific type, you cannot change its type later. It checks for errors before execution, which is why it is called a compiled language. It create binary file and then execute that file.
+
+- JavaScript is a dynamically typed, interpreted language. You can change the type of a variable, and it detects errors after execution, which is why it is called an interpreted language.
+
+
+3: Why to use Go?
+- Go is easy to learn
+- Go has fast runtime and compile time
+- It support concurrency (concurrency means performing multiple thing at the same time without effecting the main result)
+- It has memory management
+- It's work on different platforms (windows, Mac, linux, etc.)
+
+
+
+4: Go syntax
+- Package declaration
+- Import packages
+- Functions
+- Statement and expressions
