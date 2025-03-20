@@ -2,36 +2,38 @@ package main
 
 import "fmt"
 
-//jwtToken := 1250;	    this gives an error because we can't decalre variable like this globally it work's in any method or in function
+var globalVariable string = "This is global variable"
+var testing string 
+func main () {
+	fmt.Println(testing)
+	// Variables with types
+	var numberVar int = 20;
+	var isAuth bool = true;
+	var myName  = "Variable in the function"
+	var assignLater string
+	
+	fmt.Println(globalVariable, "\n", myName,  )
+	fmt.Println("Number type variable:", numberVar, "\n", "Boolean type variable:", isAuth)
+	testing  = "Declaraing outside of the function and assigning value inside the function"
 
-const MyName = "Adnan Tariq" //If we are creating a variable with constant then we have to put the first letter of constant variable to capital
 
-// := we can call this either walrus operator or short variable declaration operator
 
-func main() {
-	var name string = "adnan" //STRING
-	fmt.Println(name)
-	fmt.Printf("The variable of type %T \n", name)
+	// Variables without assigning values
+	var noName string;
+	var noNumber int;
+	var noBool bool;
+	assignLater = "This is assigned later"
 
-	var isLogIn bool = false //BOOLEAN
-	fmt.Println(isLogIn)
-	fmt.Printf("The variable of type %T  \n", isLogIn)
+	fmt.Println( "Variable without assigning value", noName, noNumber, noBool)
+	fmt.Println( "This is assign later", assignLater)
 
-	var numbers int = 1200 //INTEGER
-	fmt.Println(numbers)
-	fmt.Printf("The variable of type %T \n", numbers)
 
-	var floatNumbers = 12.50 //FLOATING POINT NUMBER
-	fmt.Println(floatNumbers)
-	fmt.Printf("The variable of type %T \n", floatNumbers)
 
-	// WITHOUT TYPE
-	const withoutType = "this is without type"
-	fmt.Println(withoutType)
+	// Variables using short form variable declaration We can't use this outside of the function. It's not possible to declare a variable using := without assigning value to it
+	lastName := "Tariq";
+	lastNum := 20;
+	notAuth := false;
 
-	//CREATE VARIABLE WITHOUT VAR KEWORD
-
-	withouVarKeyword := "this variable is declared without var keyword"
-	fmt.Println(withouVarKeyword)
+	fmt.Println("Variable using short form variable declaration", lastName, lastNum, notAuth)
 
 }

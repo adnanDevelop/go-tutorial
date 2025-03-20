@@ -1,0 +1,46 @@
+
+-------------- Data types --------------
+There are three main data types of golang
+- Boolean short form for adding type is: bool
+- String  short form for adding type is: str
+- Integer short form for adding type is: int
+
+1:Boolean
+A boolean data type is declared with bool keyword. It's contain true or false as a value. Default value of bool is false. It's mostly used for conditional testing.
+
+2: Integer
+Integer data types are used to store whole numbers without decimals. There are two categories of it. 
+1: Signed Integer: Can store both positive and negative values         2: Unsignedd Integer: Can store only negative values
+
+3: String
+It is used to store sequence of charactor. String value must be surrounded by double quotes.
+
+
+There are two ways to declare variable
+1: By using var keyword                 
+2: With ( := ) Short variable declaration operator
+var testing = "testing"
+var testingTwo string = "testing"
+
+testing:= "testing" ==> type of variable is inferred from the value
+
+Ager var ki help sy variable create kerty h means declare kerty h aur value assign nai kerty but type add kerty h toh us variable ki value wo type hojai gi. Iske ilawa ager variable declare kerty h aur later on value assign kerain toh wo bhi possible h. At a time multiple variables declare ker skty h ager sath type add kerain toh sab ki type aik hi hogi lekin ager type add nai kerty toh different type ki values store ker skty h. Multiple variables ko hum aik group k ander bhi likh skty h tahke read kerna easy ho. Hum camleCase, pascaleCase aur snakeCase mein variable declare ker skty h
+var myName string; ===> ""
+var myNum int;     ===> 0
+var isAuth bool;   ===> false
+var a,b,c int = 1,2,3
+var a,b,c  = "string","integer","boolean"
+var (a,b,c = 1,2,3)
+Different cases
+myName:= "camelCase"
+PasCase:= "PascleCase"
+snake_case:="snake_case"
+
+
+Variable without keyword is not allowed to declare in global but if we create it in any method or in function then it's work
+Ager := is sy variable declare kerty h lekin value assign na karain ye possible nai h aur isko hum funcition k ander hi use kerty outside nai ker skty
+
+
+Constant variables
+Ager koi aisa varialbe declare kerna ho jisko na toh redeclare kerna pary aur na hi reassign kerna pary toh const ka use kerty h. Isko inside aur outside of the function use ker skty h. Lekin varaible name PascaleCase mein hona chahiy identification k liye. constant ki 2 types hoti h typed constant and untyped constant with type and without type. Aik group k ander multiple constant ko bhi create ker skty h. 
+
