@@ -21,7 +21,10 @@ func main() {
 	*/
 
 	addNewElements := [5]int{1: 10, 4: 20}
+	addNewElements[3] = 30 	// adding new value
+
 	fmt.Println(addNewElements)
+	fmt.Println(addNewElements[1]) // get specific value using index number
 	fmt.Println(len(addNewElements)) //Checking the length of an array
 
 }
