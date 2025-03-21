@@ -18,7 +18,7 @@ It is used to store sequence of charactor. String value must be surrounded by do
 
 There are two ways to declare variable
 1: By using var keyword                 
-2: With ( := ) Short variable declaration operator
+2: With ( := ) Volrus operator or Short variable declaration operator 
 var testing = "testing"
 var testingTwo string = "testing"
 
