@@ -44,4 +44,14 @@ func main() {
 		fmt.Println("Invalid day")
 	}
 
+	newDay := 5
+	switch newDay {
+	case 1, 3, 5:
+		fmt.Println("Odd day")
+	case 2, 4, 6:
+		fmt.Println("Even day")
+	default:
+		fmt.Println("Invalid day")
+	}
+
 }
