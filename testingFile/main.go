@@ -10,6 +10,8 @@ func main() {
 
 	firstSlice := []int{1, 2, 3}
 	secondSlice := []int{4, 5, 6}
+	
+
 
 	secondSlice = append(secondSlice, firstSlice...)
 
