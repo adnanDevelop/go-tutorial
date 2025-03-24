@@ -25,13 +25,19 @@ type User struct {
 	Email string             `bson:"email" json:"email"`
 }
 
+// Pagination struct
+type Pagination struct {
+	CurrentPage int `json:"currentPage"`
+	TotalItems  int `json:"totalItems"`
+	TotalPages  int `json:"totalPages"`
+}
+
+// Response struct with pagination
 type Response struct {
-	Status      int    `json:"status"`
-	Message     string `json:"message"`
-	Users       []User `json:"users"`
-	CurrentPage int    `json:"currentPage"`
-	TotalItems  int    `json:"totalItems"`
-	TotalPages  int    `json:"totalPages"`
+	Status     int        `json:"status"`
+	Message    string     `json:"message"`
+	Users      []User     `json:"users"`
+	Pagination Pagination `json:"pagination"`
 }
 
 // Connect to MongoDB
@@ -121,14 +127,16 @@ func getUsers(c echo.Context) error {
 
 	// Create response with pagination info
 	response := &Response{
-		Status:      http.StatusOK,
-		Message:     "Users fetched successfully",
-		Users:       users,
-		CurrentPage: page,
-		TotalItems:  int(totalCount),
-		TotalPages:  totalPages,
+		Status:  http.StatusOK,
+		Message: "Data fetched successfully",
+		Users:   users,
+		Pagination: Pagination{
+			CurrentPage: page,
+			TotalItems:  int(totalCount),
+			TotalPages:  totalPages,
+		},
 	}
-
+	fmt.Println(response)
 	return c.JSON(http.StatusOK, response)
 }
 

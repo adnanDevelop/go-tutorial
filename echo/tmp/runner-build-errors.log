@@ -1,2 +1,0 @@
-# my-echo-app
-.\main.go:99:21: undefined: http.StatusOk
