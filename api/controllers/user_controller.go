@@ -90,6 +90,7 @@ func UpdateUser(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, "Invalid ID format")
 	}
+
 	var user models.User
 	if err := c.Bind(&user); err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
@@ -116,9 +117,19 @@ func DeleteUser(c echo.Context) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
+	var existingUser models.User
+	err = userCollection.FindOne(ctx, bson.M{"_id": objID}).Decode(&existingUser)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return c.JSON(http.StatusNotFound, utils.ShortResponse{Status: http.StatusNotFound, Message: "User not found"})
+		}
+		return c.JSON(http.StatusInternalServerError, utils.BadRequest{Status: http.StatusInternalServerError, Message: err.Error()})
+	}
+
 	_, err = userCollection.DeleteOne(ctx, bson.M{"_id": objID})
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, utils.BadRequest{Status: http.StatusInternalServerError, Message: err.Error()})
 	}
-	return c.JSON(http.StatusOK, "User deleted successfully")
+
+	return c.JSON(http.StatusOK, utils.ShortResponse{Status: http.StatusOK, Message: "User deleted successfully"})
 }

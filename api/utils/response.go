@@ -13,6 +13,10 @@ type Response struct {
 	Pagination *Pagination `json:"pagination"`
 }
 
+type ShortResponse struct {
+	Status  int    `json:"status"`
+	Message string `json:"message"`
+}
 type BadRequest struct {
 	Status  int    `json:"status"`
 	Message string `json:"message"`
