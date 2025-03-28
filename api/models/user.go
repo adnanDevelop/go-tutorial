@@ -2,6 +2,15 @@ package models
 
 import "go.mongodb.org/mongo-driver/bson/primitive"
 
+type Role string
+
+const (
+	Member         Role = "member"
+	ProjectManager Role = "projectManager"
+	Admin          Role = "admin"
+	ClientRole     Role = "client"
+)
+
 type User struct {
 	ID             string               `json:"id" bson:"_id,omitempty"`
 	Name           string               `json:"name" bson:"name"`
@@ -9,7 +18,7 @@ type User struct {
 	Password       string               `json:"password" bson:"password"`
 	ProfilePicture string               `json:"profilePicture" bson:"profilePicture"`
 	Description    string               `json:"description" bson:"description"`
-	Role           string               `json:"role" bson:"role"`
+	Role           Role                 `json:"role" bson:"role"`
 	Deal           string               `json:"deal" bson:"deal"`
 	Country        string               `json:"country" bson:"country"`
 	Status         string               `json:"status" bson:"status"`

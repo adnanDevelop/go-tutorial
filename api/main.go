@@ -17,7 +17,8 @@ func main() {
 	client := config.ConnectDB()
 	controllers.Init(client.Database("testdb"))
 
-	routes.RegisterRoutes(e)
+	routes.UserRoutes(e)
+	routes.ClientRoutes(e)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
