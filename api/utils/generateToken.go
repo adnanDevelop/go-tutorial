@@ -7,9 +7,9 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var secretKey = []byte("your-secret-key")
+var secretKey = "mysecretkey123"
 
-func GenerateJWT( id string) (string, error) {
+func GenerateJWT(id string) (string, error) {
 	if len(secretKey) == 0 {
 		log.Fatal("SECRET_KEY environment variable not set")
 	}
@@ -22,7 +22,7 @@ func GenerateJWT( id string) (string, error) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	signedToken, err := token.SignedString(secretKey)
+	signedToken, err := token.SignedString([]byte(secretKey))
 	if err != nil {
 		return "", err
 	}

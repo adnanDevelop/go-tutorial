@@ -165,7 +165,6 @@ func GetUsers(c echo.Context) error {
 	defer cursor.Close(ctx)
 
 	var users []models.User
-
 	if err = cursor.All(ctx, &users); err != nil {
 		return c.JSON(http.StatusInternalServerError, utils.BadRequest{
 			Status:  http.StatusInternalServerError,
@@ -173,10 +172,21 @@ func GetUsers(c echo.Context) error {
 		})
 	}
 
+	// Remove password field
+	var filteredUsers []map[string]interface{}
+	for _, user := range users {
+		userMap := map[string]interface{}{
+			"id":    user.ID,
+			"name":  user.Name,
+			"email": user.Email,
+		}
+		filteredUsers = append(filteredUsers, userMap)
+	}
+
 	return c.JSON(http.StatusOK, utils.Response{
 		Status:  http.StatusOK,
-		Message: "Success",
-		Data:    users,
+		Message: "Users retrieved successfully",
+		Data:    filteredUsers,
 	})
 }
 
@@ -196,5 +206,17 @@ func GetUserByID(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusNotFound, utils.BadRequest{Status: http.StatusNotFound, Message: "User not found"})
 	}
-	return c.JSON(http.StatusOK, user)
+
+	// Remove password before returning response
+	userMap := map[string]interface{}{
+		"id":    user.ID,
+		"name":  user.Name,
+		"email": user.Email,
+	}
+
+	return c.JSON(http.StatusOK, utils.Response{
+		Status:  http.StatusOK,
+		Message: "User retrieved successfully",
+		Data:    userMap,
+	})
 }
