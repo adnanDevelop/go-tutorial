@@ -1,3 +1,1 @@
-# crud/controllers
-controllers\user_controller.go:211:2: declared and not used: userMap
-controllers\user_controller.go:217:31: undefined: uti
+models\comment.go:1:1: expected 'package', found 'EOF'
