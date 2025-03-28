@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"log"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -8,12 +9,22 @@ import (
 
 var secretKey = []byte("your-secret-key")
 
-func GenerateToken() (string, error) {
+func GenerateJWT( id string) (string, error) {
+	if len(secretKey) == 0 {
+		log.Fatal("SECRET_KEY environment variable not set")
+	}
+
 	claims := jwt.MapClaims{
-		"username": "adnan_tariq",
-		"exp":      time.Now().Add(time.Hour * 1).Unix(),
+
+		"id":  id,
+		"exp": time.Now().Add(24 * time.Hour).Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(secretKey)
+
+	signedToken, err := token.SignedString(secretKey)
+	if err != nil {
+		return "", err
+	}
+	return signedToken, nil
 }
