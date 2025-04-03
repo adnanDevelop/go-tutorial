@@ -4,6 +4,7 @@ import (
 	"context"
 	"crud/models"
 	"crud/utils"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -125,10 +126,12 @@ func UpdateUser(c echo.Context) error {
 // Delete User
 func DeleteUser(c echo.Context) error {
 	id := c.Param("id")
+	fmt.Println(id, "simpole id")
 	objID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, "Invalid ID format")
 	}
+	fmt.Println(objID, "objectId")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

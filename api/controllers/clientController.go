@@ -25,7 +25,7 @@ func CreateClient(c echo.Context) error {
 	var client models.Client
 	fmt.Println(client, "client data")
 	if err := c.Bind(&client); err != nil {
-		return c.JSON(http.StatusBadRequest, err.Error())
+		return c.JSON(http.StatusBadRequest, utils.BadRequest{Status: http.StatusBadRequest, Message: err.Error()})
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)

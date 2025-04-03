@@ -1,2 +1,0 @@
-controllers\commentController.go:1:1: expected 'package', found 'EOF'
-routes\commentRoutes.go:1:1: expected 'package', found 'EOF'
