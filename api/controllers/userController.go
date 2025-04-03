@@ -4,6 +4,7 @@ import (
 	"context"
 	"crud/models"
 	"crud/utils"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -43,14 +44,25 @@ func CreateUser(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, utils.BadRequest{Status: http.StatusInternalServerError, Message: err.Error()})
 	}
 
+	// Creating User Picture
+	profilePicture := fmt.Sprintf("https://avatar.iran.liara.run/public/boy?username=%s", user.Name)
+
 	user.Password = string(hashPassword)
+	user.ProfilePicture = profilePicture
 
 	result, err := userCollection.InsertOne(ctx, user)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, utils.BadRequest{Status: http.StatusInternalServerError, Message: err.Error()})
 	}
 	user.ID = result.InsertedID.(primitive.ObjectID).Hex()
-	return c.JSON(http.StatusOK, utils.Response{Status: http.StatusOK, Message: "User created successfully", Data: user})
+
+	type SuccessResponse struct {
+		Status  int    `json:"status"`
+		Message string `json:"message"`
+		Data    models.User
+	}
+
+	return c.JSON(http.StatusOK, SuccessResponse{Status: http.StatusOK, Message: "User created successfully", Data: user})
 }
 
 // Login User
@@ -83,18 +95,12 @@ func LoginUser(c echo.Context) error {
 
 	c.Response().Header().Add("Authorization", "Bearer "+token)
 
-	type LoginResponse struct {
-		ID    string `json:"id"`
-		Name  string `json:"name"`
-		Email string `json:"email"`
-	}
-
 	type SuccessResponse struct {
 		Status  int    `json:"status"`
 		Message string `json:"message"`
-		Data    LoginResponse
+		Data    models.User
 	}
-	return c.JSON(http.StatusOK, SuccessResponse{Status: http.StatusOK, Message: "User logged in successfully", Data: LoginResponse{ID: existingUser.ID, Name: existingUser.Name, Email: existingUser.Email}})
+	return c.JSON(http.StatusOK, SuccessResponse{Status: http.StatusOK, Message: "User logged in successfully", Data: existingUser})
 
 }
 
@@ -172,21 +178,10 @@ func GetUsers(c echo.Context) error {
 		})
 	}
 
-	// Remove password field
-	var filteredUsers []map[string]interface{}
-	for _, user := range users {
-		userMap := map[string]interface{}{
-			"id":    user.ID,
-			"name":  user.Name,
-			"email": user.Email,
-		}
-		filteredUsers = append(filteredUsers, userMap)
-	}
-
 	return c.JSON(http.StatusOK, utils.Response{
 		Status:  http.StatusOK,
 		Message: "Users retrieved successfully",
-		Data:    filteredUsers,
+		Data:    users,
 	})
 }
 

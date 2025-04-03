@@ -1,8 +1,6 @@
 package models
 
 import (
-	"time"
-
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -21,6 +19,4 @@ type Client struct {
 	ClientPicture string               `bson:"clientPicture,omitempty" json:"clientPicture"`
 	Active        bool                 `bson:"active" json:"active"`
 	Role          string               `bson:"role" json:"role"`
-	CreatedAt     time.Time            `bson:"createdAt,omitempty" json:"createdAt"`
-	UpdatedAt     time.Time            `bson:"updatedAt,omitempty" json:"updatedAt"`
 }

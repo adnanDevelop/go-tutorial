@@ -1,0 +1,3 @@
+# crud/controllers
+controllers\userController.go:49:2: "https://avatar.iran.liara.run/public/boy?username=%s" (untyped string constant) is not used
+controllers\userController.go:52:24: undefined: profilePicture

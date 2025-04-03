@@ -17,6 +17,4 @@ type Project struct {
 	EndDate     time.Time            `bson:"endDate" json:"endDate"`
 	Comments    []primitive.ObjectID `bson:"comments,omitempty" json:"comments"`
 	Tasks       []primitive.ObjectID `bson:"tasks,omitempty" json:"tasks"`
-	CreatedAt   time.Time            `bson:"createdAt,omitempty" json:"createdAt"`
-	UpdatedAt   time.Time            `bson:"updatedAt,omitempty" json:"updatedAt"`
 }

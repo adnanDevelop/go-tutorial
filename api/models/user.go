@@ -8,7 +8,6 @@ const (
 	Member         Role = "member"
 	ProjectManager Role = "projectManager"
 	Admin          Role = "admin"
-	ClientRole     Role = "client"
 )
 
 type User struct {
@@ -24,6 +23,4 @@ type User struct {
 	Status         string               `json:"status" bson:"status"`
 	Projects       []primitive.ObjectID `json:"projects" bson:"projects"`
 	Tasks          []primitive.ObjectID `json:"tasks" bson:"tasks"`
-	CreatedAt      string               `json:"createdAt" bson:"createdAt"`
-	UpdatedAt      string               `json:"updatedAt" bson:"updatedAt"`
 }

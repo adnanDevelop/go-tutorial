@@ -29,6 +29,5 @@ type Task struct {
 	ProjectID     primitive.ObjectID   `bson:"projectId,omitempty" json:"projectId"`
 	DueDate       time.Time            `bson:"dueDate" json:"dueDate"`
 	RemainingDays string               `bson:"remainingDays" json:"remainingDays"`
-	CreatedAt     time.Time            `bson:"createdAt,omitempty" json:"createdAt"`
-	UpdatedAt     time.Time            `bson:"updatedAt,omitempty" json:"updatedAt"`
+
 }
