@@ -79,7 +79,7 @@ func LoginUser(c echo.Context) error {
 	var existingUser models.User
 	err := userCollection.FindOne(ctx, bson.M{"email": user.Email}).Decode(&existingUser)
 	if err != nil {
-		return c.JSON(http.StatusNotFound, utils.BadRequest{Status: http.StatusNotFound, Message: "User not found"})
+		return c.JSON(http.StatusNotFound, utils.BadRequest{Status: http.StatusNotFound, Message: "Invalid email "})
 	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(existingUser.Password), []byte(user.Password))
@@ -106,8 +106,12 @@ func LoginUser(c echo.Context) error {
 
 // Update User
 func UpdateUser(c echo.Context) error {
-	id := c.Param("id")
-	objID, err := primitive.ObjectIDFromHex(id)
+	userID, ok := c.Get("id").(string)
+	if !ok {
+		return c.JSON(http.StatusUnauthorized, "Unauthorized")
+	}
+
+	objID, err := primitive.ObjectIDFromHex(userID)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, "Invalid ID format")
 	}
@@ -120,12 +124,37 @@ func UpdateUser(c echo.Context) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	update := bson.M{"$set": user}
+	updateData := bson.M{}
+
+	if user.Name != "" {
+		updateData["name"] = user.Name
+	}
+
+	if user.Email != "" {
+		updateData["email"] = user.Email
+	}
+
+	if user.Password != "" {
+		hashPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, utils.BadRequest{Status: http.StatusInternalServerError, Message: err.Error()})
+		}
+		updateData["password"] = string(hashPassword)
+	}
+
+	update := bson.M{"$set": updateData}
 	_, err = userCollection.UpdateOne(ctx, bson.M{"_id": objID}, update)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, utils.BadRequest{Status: http.StatusInternalServerError, Message: err.Error()})
 	}
-	return c.JSON(http.StatusOK, "User updated successfully")
+
+	type SuccessResponse struct {
+		Status  int    `json:"status"`
+		Message string `json:"message"`
+		Data    models.User
+	}
+
+	return c.JSON(http.StatusOK, SuccessResponse{Status: http.StatusOK, Message: "User updated successfully"})
 }
 
 // Delete User
