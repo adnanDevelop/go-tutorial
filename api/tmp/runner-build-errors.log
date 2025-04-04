@@ -1,0 +1,9 @@
+# crud/controllers
+controllers\clientController.go:180:4: undefined: Key
+controllers\clientController.go:180:9: cannot use "$lookup" (untyped string constant) as primitive.E value in array or slice literal
+controllers\clientController.go:181:4: undefined: Value
+controllers\clientController.go:181:11: cannot use bson.D{…} (value of type bson.D) as primitive.E value in array or slice literal
+controllers\clientController.go:189:4: undefined: Key
+controllers\clientController.go:189:9: cannot use "$unwind" (untyped string constant) as primitive.E value in array or slice literal
+controllers\clientController.go:190:4: undefined: Value
+controllers\clientController.go:190:11: cannot use bson.D{…} (value of type bson.D) as primitive.E value in array or slice literal

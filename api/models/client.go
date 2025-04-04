@@ -18,5 +18,4 @@ type Client struct {
 	CreatedBy     primitive.ObjectID   `bson:"createdBy,omitempty" json:"createdBy"`
 	ClientPicture string               `bson:"clientPicture,omitempty" json:"clientPicture"`
 	Active        bool                 `bson:"active" json:"active"`
-	Role          string               `bson:"role" json:"role"`
 }

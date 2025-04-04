@@ -16,6 +16,7 @@ func main() {
 
 	client := config.ConnectDB()
 	controllers.Init(client.Database("testdb"))
+	controllers.InitClient(client.Database("testdb"))
 
 	routes.UserRoutes(e)
 	routes.ClientRoutes(e)
