@@ -18,6 +18,7 @@ type ShortResponse struct {
 	Message string `json:"message"`
 }
 type BadRequest struct {
-	Status  int    `json:"status"`
-	Message string `json:"message"`
+	Status  int      `json:"status"`
+	Message string   `json:"message"`
+	Errors  []string `json:"errors,omitempty"`
 }

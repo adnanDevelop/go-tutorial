@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -21,17 +22,32 @@ func Init(db *mongo.Database) {
 	userCollection = db.Collection("users")
 }
 
-// Create User
+var validate = validator.New()
+
 func CreateUser(c echo.Context) error {
 	var user models.User
 	if err := c.Bind(&user); err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
 
+	// Validate the user input
+	if err := validate.Struct(user); err != nil {
+		// If validation fails, return the validation error
+		var validationErrors []string
+		for _, err := range err.(validator.ValidationErrors) {
+			validationErrors = append(validationErrors, fmt.Sprintf("Field '%s' %s", err.Field(), err.Tag()))
+		}
+		return c.JSON(http.StatusBadRequest, utils.BadRequest{
+			Status:  http.StatusBadRequest,
+			Message: "Validation error",
+			Errors:  validationErrors,
+		})
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	// If user already exist
+	// If user already exists
 	var existingUser models.User
 	err := userCollection.FindOne(ctx, bson.M{"email": user.Email}).Decode(&existingUser)
 	if err == nil {
