@@ -1,0 +1,48 @@
+# Go binaries
+/bin/
+/obj/
+/build/
+
+# Go dependency directories
+/vendor/
+
+# Compiled object files, executable binaries, and test files
+*.test
+*.exe
+*.out
+*.dSYM
+
+# IDE/editor directories and settings
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# dotenv file for sensitive data
+.env
+
+# Go workspace file (if any)
+go.work
+
+# Go modules cache
+.golangci.yml
+
+# Ignore local environment variables if needed
+.env.local
+
+# Temp files
+/temp/
+
+# Ignore config, controller, middleware, models, routes if there are any generated files or sensitive information
+/config/*
+/controller/*
+/middleware/*
+/models/*
+/routes/*
+/utils/*
+
+# You may choose to selectively ignore files in the above directories if you want specific files to be tracked.
