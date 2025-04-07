@@ -168,50 +168,55 @@ func ListClient(c echo.Context) error {
 // Get client by id
 func GetClientById(c echo.Context) error {
 	id := c.Param("id")
-	_, err := primitive.ObjectIDFromHex(id)
-
+	objID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, utils.BadRequest{Status: http.StatusBadRequest, Message: err.Error()})
+		return c.JSON(http.StatusBadRequest, utils.BadRequest{
+			Status:  http.StatusBadRequest,
+			Message: err.Error(),
+		})
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	// Aggregation pipeline ke liye sahi syntax
 	pipeline := mongo.Pipeline{
-		{
-			{"$lookup", bson.D{
-				{"from", "users"},           // Join with "users" collection
-				{"localField", "createdBy"}, // Field from "clients" collection to match
-				{"foreignField", "_id"},     // Field from "users" collection to match
-				{"as", "createdByUser"},     // Name of the resulting field
-			}},
-		},
-		{
-			{"$unwind", bson.D{
-				{"path", "$createdByUser"},           // Unwind "createdByUser" array
-				{"preserveNullAndEmptyArrays", true}, // Ensure that missing fields are handled
-			}},
-		},
+		{{"$match", bson.D{{"_id", objID}}}},
+		{{"$lookup", bson.D{
+			{"from", "users"},
+			{"localField", "createdBy"},
+			{"foreignField", "_id"},
+			{"as", "createdByUser"},
+		}}},
+		{{"$unwind", bson.D{
+			{"path", "$createdByUser"},
+			{"preserveNullAndEmptyArrays", true},
+		}}},
 	}
 
-	// Perform aggregation with the pipeline on the client data
 	cursor, err := clientCollection.Aggregate(ctx, pipeline)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, utils.BadRequest{Status: http.StatusInternalServerError, Message: err.Error()})
+		return c.JSON(http.StatusInternalServerError, utils.BadRequest{
+			Status:  http.StatusInternalServerError,
+			Message: err.Error(),
+		})
 	}
 	defer cursor.Close(ctx)
 
 	var client models.Client
 	if cursor.Next(ctx) {
 		if err := cursor.Decode(&client); err != nil {
-			return c.JSON(http.StatusInternalServerError, utils.BadRequest{Status: http.StatusInternalServerError, Message: err.Error()})
+			return c.JSON(http.StatusInternalServerError, utils.BadRequest{
+				Status:  http.StatusInternalServerError,
+				Message: err.Error(),
+			})
 		}
 	} else {
-		return c.JSON(http.StatusNotFound, utils.BadRequest{Status: http.StatusNotFound, Message: "Client not found"})
+		return c.JSON(http.StatusNotFound, utils.BadRequest{
+			Status:  http.StatusNotFound,
+			Message: "Client not found",
+		})
 	}
 
-	// Return the populated client data
 	return c.JSON(http.StatusOK, utils.Response{
 		Status:  http.StatusOK,
 		Message: "Data retrieved successfully",
