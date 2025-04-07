@@ -1,1 +1,2 @@
-crud: go build crud: copying C:\Users\adnan\AppData\Local\Temp\go-build1106756623\b001\exe\a.out.exe: open tmp\runner-build.exe: The process cannot access the file because it is being used by another process.
+# crud/config
+config\db.go:18:31: cannot use options.Client().ApplyURI(mongoURI) (value of type *"go.mongodb.org/mongo-driver/mongo/options".ClientOptions) as context.Context value in argument to mongo.Connect: *"go.mongodb.org/mongo-driver/mongo/options".ClientOptions does not implement context.Context (missing method Deadline)
