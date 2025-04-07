@@ -21,7 +21,6 @@ func InitClient(db *mongo.Database) {
 	clientCollection = db.Collection("clients")
 	userCollect = db.Collection("users")
 
-	// Debugging: Check if function is being called
 	if clientCollection == nil {
 		log.Println("❌ clientCollection not initialized!")
 	} else {
@@ -41,26 +40,23 @@ func CreateClient(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, utils.BadRequest{Status: http.StatusBadRequest, Message: err.Error()})
 	}
 
-	// ✅ `CreatedBy` ko pehle set karna hai
 	client.CreatedBy, _ = primitive.ObjectIDFromHex(userID)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	// ✅ Ensure that the client does not already exist
 	var existingClient models.Client
 	err := clientCollection.FindOne(ctx, bson.M{"email": client.Email}).Decode(&existingClient)
 	if err == nil {
 		return c.JSON(http.StatusConflict, utils.BadRequest{Status: http.StatusConflict, Message: "Client already exists"})
 	}
 
-	// ✅ Insert karein
 	result, err := clientCollection.InsertOne(ctx, client)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, utils.BadRequest{Status: http.StatusInternalServerError, Message: err.Error()})
 	}
 
-	client.ID = result.InsertedID.(primitive.ObjectID) // ✅ Insert hone ke baad `ID` set karein
+	client.ID = result.InsertedID.(primitive.ObjectID)
 
 	return c.JSON(http.StatusOK, utils.Response{
 		Status:  http.StatusOK,
@@ -105,23 +101,44 @@ func ListClient(c echo.Context) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	pipeline := mongo.Pipeline{
-		{{
-			Key: "$lookup",
-			Value: bson.D{
-				{"from", "users"},
-				{"localField", "createdBy"},
-				{"foreignField", "_id"},
-				{"as", "createdByUser"},
+	// First convert string createdBy to ObjectID
+	pipeline := []bson.M{
+		{
+			"$addFields": bson.M{
+				"createdByObjId": bson.M{
+					"$toObjectId": "$createdBy",
+				},
 			},
-		}},
-		{{
-			Key: "$unwind",
-			Value: bson.D{
-				{"path", "$createdByUser"},
-				{"preserveNullAndEmptyArrays", true},
+		},
+		{
+			"$lookup": bson.M{
+				"from":         "users",
+				"localField":   "createdByObjId",
+				"foreignField": "_id",
+				"as":           "createdByUser",
 			},
-		}},
+		},
+		{
+			"$unwind": bson.M{
+				"path":                       "$createdByUser",
+				"preserveNullAndEmptyArrays": true,
+			},
+		},
+		{
+			"$addFields": bson.M{
+				"createdBy": bson.M{
+					"name":           "$createdByUser.name",
+					"email":          "$createdByUser.email",
+					"profilePicture": "$createdByUser.profilePicture",
+				},
+			},
+		},
+		{
+			"$project": bson.M{
+				"createdByObjId": 0,
+				"createdByUser":  0,
+			},
+		},
 	}
 
 	cursor, err := clientCollection.Aggregate(ctx, pipeline)
@@ -164,10 +181,10 @@ func GetClientById(c echo.Context) error {
 	pipeline := mongo.Pipeline{
 		{
 			{"$lookup", bson.D{
-				{"from", "users"},            // Join with "users" collection
-				{"localField", "createdBy"},  // Field from "clients" collection to match
-				{"foreignField", "_id"},      // Field from "users" collection to match
-				{"as", "createdByUser"},      // Name of the resulting field
+				{"from", "users"},           // Join with "users" collection
+				{"localField", "createdBy"}, // Field from "clients" collection to match
+				{"foreignField", "_id"},     // Field from "users" collection to match
+				{"as", "createdByUser"},     // Name of the resulting field
 			}},
 		},
 		{
